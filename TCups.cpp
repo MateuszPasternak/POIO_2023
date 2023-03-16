@@ -50,7 +50,7 @@ void TCups::add_2(std::string name, double percent, std::string type)
 			double perc = 100 - (others_vol / volume_sum);
 			double diff = abs(percent - perc);
 			double desired_vol, new_vol_sum;
-			std::cout << "\n" << perc << "\n\n";
+			//std::cout << "\n" << perc << "\n\n";
 			new_vol_sum = others_vol / (diff/100);
 			desired_vol = new_vol_sum - others_vol;
 
@@ -118,7 +118,50 @@ void TCups::mixup(TCups cup1, TCups cup2)
 {
 	int size_cup1 = cup1.substances.size();
 	int size_cup2 = cup2.substances.size();
+	
+	for (int i = 0; i < size_cup1; i++)
+	{
+		std::string name = cup1.substances[i].get_name();
+		int _id = get_substance_id(cup1.substances, name, false);
 
+		if (_id == -1)
+		{
+			int _id2 = get_substance_id(cup2.substances, cup2.substances[i].get_name(), false);
+
+			if (_id == -1)
+			{
+				std::cout << "\n\n W zadnym kubku nie ma takiej substancji\n\n";
+			}
+			else
+			{
+				cup1.substances.push_back(cup2.substances[_id2]);
+				cup1.volumes.push_back(cup2.volumes[_id2]);
+				cup1.masses.push_back(cup2.masses[_id2]);
+				cup1.volume_sum += cup2.volumes[_id2];
+				cup1.mass_sum += cup2.masses[_id2];
+			}
+		}
+		else if(_id >= 0)
+		{
+			int _id2 = get_substance_id(cup2.substances, name, false);
+			
+			if (_id2 >= 0)
+			{
+				cup1.volumes[_id] += cup2.volumes[_id2];
+				cup1.masses[_id] += cup2.masses[_id2];
+				cup1.volume_sum += cup2.volumes[_id2];
+				cup1.mass_sum += cup2.masses[_id2];
+			}
+		}
+	}
+	//std::cout << "\nkoniec petli\n";
+
+	/*size_cup1 = cup1.substances.size();
+	std::cout << "\n" << size_cup1;
+	for (int i = 0; i < size_cup1; i++)
+	{
+		std::cout << "\n" << cup1.substances[i].get_name() << "\n";
+	}*/
 }
 
 void TCups::show()
@@ -126,21 +169,21 @@ void TCups::show()
 	int count = substances.size();
 	for (int i = 0; i < count; i++)
 	{
-		std::cout << substances[i].get_name()
+		std::cout << "\n" << substances[i].get_name()
 			<< "; volume: " << volumes[i] * 1e6 << " ml"
 			<< "; mass: " << masses[i] << " g" << std::endl;
 	}
 
 	print_coe_vol();
 	print_coe_mass();
-	std::cout << std::endl;
+	std::cout << "\n\n";
 }
 
 void TCups::print_coe_vol()
 {
 	int size = TCups::volumes.size();
 
-	std::cout << "\nVolume coe: ";
+	std::cout << "\nVolume coe: \n";
 	for (int i = 0; i < size; i++)
 	{
 		std::cout << substances[i].get_name() << ": " << (TCups::volumes[i] / TCups::volume_sum) * 100 << " --- ";
@@ -151,7 +194,7 @@ void TCups::print_coe_mass()
 {
 	int size = TCups::volumes.size();
 
-	std::cout << "\nMass coe: ";
+	std::cout << "\nMass coe: \n";
 	for (int i = 0; i < size; i++)
 	{
 		std::cout << substances[i].get_name() << ": " << TCups::volumes[i]*substances[i].get_Ro()*1000 / TCups::mass_sum * 100 << " --- ";

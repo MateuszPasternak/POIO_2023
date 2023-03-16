@@ -15,6 +15,7 @@ public:
 	void add(TSubstance substance, double volume_in_ml);
 	void add(std::string name, double volume_in_ml);
 	void add_2(std::string name, double percent, std::string type="volume");
+	void mixup(TCups cup1, TCups cup2);
 	void show();
 
 private:
