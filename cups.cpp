@@ -28,14 +28,15 @@ int main()
     
     kubek1.add_2("woda", 90);
 
-    kubek1.show();
+    //kubek1.show();
     std::cout << "\n";
 
     kubek2.add_2("oliwa", 90, "mass");
-    kubek2.show();
+    //kubek2.show();
 
-    kubek1.mixup(kubek1, kubek2);
+    kubek1.mixup(kubek2); //dlaczego drugi raz wywołując ten kubek się to psuje
     kubek1.show();
+    kubek2.show();
 }
 
 

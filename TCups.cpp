@@ -114,19 +114,19 @@ void TCups::add_2(std::string name, double percent, std::string type)
 	}
 }
 
-void TCups::mixup(TCups cup1, TCups cup2)
+void TCups::mixup(TCups cup)
 {
-	int size_cup1 = cup1.substances.size();
-	int size_cup2 = cup2.substances.size();
+	int size_cup1 = this->substances.size();
+	int size_cup2 = cup.substances.size();
 	
 	for (int i = 0; i < size_cup1; i++)
 	{
-		std::string name = cup1.substances[i].get_name();
-		int _id = get_substance_id(cup1.substances, name, false);
+		std::string name = this->substances[i].get_name();
+		int _id = get_substance_id(this->substances, name, false);
 
 		if (_id == -1)
 		{
-			int _id2 = get_substance_id(cup2.substances, cup2.substances[i].get_name(), false);
+			int _id2 = get_substance_id(cup.substances, cup.substances[i].get_name(), false);
 
 			if (_id == -1)
 			{
@@ -134,34 +134,38 @@ void TCups::mixup(TCups cup1, TCups cup2)
 			}
 			else
 			{
-				cup1.substances.push_back(cup2.substances[_id2]);
-				cup1.volumes.push_back(cup2.volumes[_id2]);
-				cup1.masses.push_back(cup2.masses[_id2]);
-				cup1.volume_sum += cup2.volumes[_id2];
-				cup1.mass_sum += cup2.masses[_id2];
+				this->substances.push_back(cup.substances[_id2]);
+				this->volumes.push_back(cup.volumes[_id2]);
+				this->masses.push_back(cup.masses[_id2]);
+				this->volume_sum += cup.volumes[_id2];
+				this->mass_sum += cup.masses[_id2];
 			}
 		}
 		else if(_id >= 0)
 		{
-			int _id2 = get_substance_id(cup2.substances, name, false);
+			int _id2 = get_substance_id(cup.substances, name, false);
 			
 			if (_id2 >= 0)
 			{
-				cup1.volumes[_id] += cup2.volumes[_id2];
-				cup1.masses[_id] += cup2.masses[_id2];
-				cup1.volume_sum += cup2.volumes[_id2];
-				cup1.mass_sum += cup2.masses[_id2];
+				this->volumes[_id] += cup.volumes[_id2];
+				this->masses[_id] += cup.masses[_id2];
+				this->volume_sum += cup.volumes[_id2];
+				this->mass_sum += cup.masses[_id2];
 			}
 		}
 	}
-	//std::cout << "\nkoniec petli\n";
 
-	/*size_cup1 = cup1.substances.size();
-	std::cout << "\n" << size_cup1;
-	for (int i = 0; i < size_cup1; i++)
-	{
-		std::cout << "\n" << cup1.substances[i].get_name() << "\n";
-	}*/
+	cup.clear_cup();
+	std::cout << cup.substances.size(); //dlaczego!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dlaczego potem pokazujesz zawartoœæ jak tu ewidetnie jesteœ wyczyszczony!!!!!!!!!!!!!
+}
+
+void TCups::clear_cup()
+{
+	this->substances.clear();
+	this->volumes.clear();
+	this->masses.clear();
+	this->volume_sum = 0;
+	this->mass_sum = 0;
 }
 
 void TCups::show()
