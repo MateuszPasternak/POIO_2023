@@ -16,7 +16,7 @@ int main()
 
     std::cout << std::endl;*/
 
-    TCups kubek1;
+    TCups kubek1, kubek2;
     kubek1.add(substancje[0], 100);
     kubek1.add(substancje[1], 50);
     kubek1.add(substancje[2], 150);
@@ -26,13 +26,13 @@ int main()
     kubek1.add("krew", 300);
     kubek1.add("oliwa", 1300);
     
-    kubek1.add("woda", 40, "volume");
+    //kubek1.add_2("woda", 90);
 
     kubek1.show();
     std::cout << "\n";
 
-    kubek1.add("oliwa", 90, "mass");
-    kubek1.show();
+    kubek2.add_2("oliwa", 90, "mass");
+    kubek2.show();
 }
 
 

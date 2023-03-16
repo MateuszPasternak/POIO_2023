@@ -14,7 +14,7 @@ class TCups
 public:
 	void add(TSubstance substance, double volume_in_ml);
 	void add(std::string name, double volume_in_ml);
-	void add(std::string name, double percent, std::string type);
+	void add_2(std::string name, double percent, std::string type="volume");
 	void show();
 
 private:
