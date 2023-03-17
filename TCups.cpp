@@ -116,17 +116,17 @@ void TCups::add_2(std::string name, double percent, std::string type)
 
 void TCups::mixup(TCups cup)
 {
-	int size_cup1 = this->substances.size();
-	int size_cup2 = cup.substances.size();
+	int size_cup1 = cup.substances.size();
+	int size_cup2 = this->substances.size();
 	
 	for (int i = 0; i < size_cup1; i++)
 	{
-		std::string name = this->substances[i].get_name();
-		int _id = get_substance_id(this->substances, name, false);
+		std::string name = cup.substances[i].get_name();
+		int _id = get_substance_id(cup.substances, name, false);
 
 		if (_id == -1)
 		{
-			int _id2 = get_substance_id(cup.substances, cup.substances[i].get_name(), false);
+			int _id2 = get_substance_id(this->substances, this->substances[i].get_name(), false);
 
 			if (_id == -1)
 			{
@@ -134,29 +134,29 @@ void TCups::mixup(TCups cup)
 			}
 			else
 			{
-				this->substances.push_back(cup.substances[_id2]);
-				this->volumes.push_back(cup.volumes[_id2]);
-				this->masses.push_back(cup.masses[_id2]);
-				this->volume_sum += cup.volumes[_id2];
-				this->mass_sum += cup.masses[_id2];
+				cup.substances.push_back(this->substances[_id2]);
+				cup.volumes.push_back(this->volumes[_id2]);
+				cup.masses.push_back(this->masses[_id2]);
+				cup.volume_sum += this->volumes[_id2];
+				cup.mass_sum += this->masses[_id2];
 			}
 		}
 		else if(_id >= 0)
 		{
-			int _id2 = get_substance_id(cup.substances, name, false);
+			int _id3 = get_substance_id(this->substances, name, false);
 			
-			if (_id2 >= 0)
+			if (_id3 >= 0)
 			{
-				this->volumes[_id] += cup.volumes[_id2];
-				this->masses[_id] += cup.masses[_id2];
-				this->volume_sum += cup.volumes[_id2];
-				this->mass_sum += cup.masses[_id2];
+				cup.volumes[_id] += this->volumes[_id3];
+				cup.masses[_id] += this->masses[_id3];
+				cup.volume_sum += this->volumes[_id3];
+				cup.mass_sum += this->masses[_id3];
 			}
 		}
 	}
 
-	cup.clear_cup();
-	std::cout << cup.substances.size(); //dlaczego!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! dlaczego potem pokazujesz zawartoœæ jak tu ewidetnie jesteœ wyczyszczony!!!!!!!!!!!!!
+	this->clear_cup();
+	//std::cout << this->substances.size(); //dlaczego!!!!!!!!!!!!!!!! dlaczego potem pokazujesz zawartoœæ jak tu ewidetnie jesteœ wyczyszczony!!!!!!!!!!!!!
 }
 
 void TCups::clear_cup()
@@ -171,16 +171,24 @@ void TCups::clear_cup()
 void TCups::show()
 {
 	int count = substances.size();
-	for (int i = 0; i < count; i++)
-	{
-		std::cout << "\n" << substances[i].get_name()
-			<< "; volume: " << volumes[i] * 1e6 << " ml"
-			<< "; mass: " << masses[i] << " g" << std::endl;
-	}
 
-	print_coe_vol();
-	print_coe_mass();
-	std::cout << "\n\n";
+	if (count > 0)
+	{
+		for (int i = 0; i < count; i++)
+		{
+			/*std::cout << "\n" << this->substances[i].get_name()
+				<< "; volume: " << this->volumes[i] * 1e6 << " ml"
+				<< "; mass: " << this->masses[i] << " g" << std::endl;*/
+		}
+
+		print_coe_vol();
+		print_coe_mass();
+		std::cout << "\n\n";
+	}
+	else
+	{
+		std::cout << "Kubek jest pusty!\n\n\n";
+	}
 }
 
 void TCups::print_coe_vol()
