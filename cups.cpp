@@ -17,6 +17,7 @@ int main()
     std::cout << std::endl;*/
 
     TCups kubek1, kubek2;
+    TCups* cup1 = &kubek1;
     kubek1.add(substancje[0], 100);
     kubek1.add(substancje[1], 50);
     kubek1.add(substancje[2], 150);
@@ -34,7 +35,7 @@ int main()
     kubek2.add_2("oliwa", 90, "mass");
     kubek2.show();
 
-    kubek2.mixup(kubek1); //dlaczego drugi raz wywołując ten kubek się to psuje
+    kubek2.mixup(cup1); //dlaczego drugi raz wywołując ten kubek się to psuje
     kubek1.show();
     kubek2.show();
 }

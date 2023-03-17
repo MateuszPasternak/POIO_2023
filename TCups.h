@@ -12,10 +12,11 @@ class TCups
 	double volume_sum, mass_sum;
 
 public:
+	TCups();
 	void add(TSubstance substance, double volume_in_ml);
 	void add(std::string name, double volume_in_ml);
 	void add_2(std::string name, double percent, std::string type="volume");
-	void mixup(TCups cup);
+	void mixup(TCups *cup);
 	void show();
 
 private:

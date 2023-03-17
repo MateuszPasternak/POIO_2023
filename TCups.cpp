@@ -1,5 +1,14 @@
 #include "TCups.h"
 
+TCups::TCups()
+{
+	this->volume_sum = 0;
+	this->mass_sum = 0;
+	this->substances.clear();
+	this->volumes.clear();
+	this->masses.clear();
+}
+
 void TCups::add(TSubstance substance, double volume_in_ml)
 {
 	std::string new_name = substance.get_name();
@@ -19,11 +28,11 @@ void TCups::add(TSubstance substance, double volume_in_ml)
 	}
 	else if (substance_pos_in_cup >= 0)
 	{
-		this->volumes[substance_pos_in_cup] += volume_in_ml / 1e6;
-		this->masses[substance_pos_in_cup] += mass;
+		volumes[substance_pos_in_cup] += volume_in_ml / 1e6;
+		masses[substance_pos_in_cup] += mass;
 		//std::cout << "\t\n\n" << volumes[_id] << "\n\n";
-		this->volume_sum += volume_in_ml / 1e6;
-		this->mass_sum += mass;
+		volume_sum += volume_in_ml / 1e6;
+		mass_sum += mass;
 	}
 
 }
@@ -114,15 +123,15 @@ void TCups::add_2(std::string name, double percent, std::string type)
 	}
 }
 
-void TCups::mixup(TCups cup)
+void TCups::mixup(TCups * cup)
 {
-	int size_cup1 = cup.substances.size();
+	int size_cup1 = cup->substances.size();
 	int size_cup2 = this->substances.size();
 	
 	for (int i = 0; i < size_cup1; i++)
 	{
-		std::string name = cup.substances[i].get_name();
-		int _id = get_substance_id(cup.substances, name, false);
+		std::string name = cup->substances[i].get_name();
+		int _id = get_substance_id(cup->substances, name, false);
 
 		if (_id == -1)
 		{
@@ -134,11 +143,11 @@ void TCups::mixup(TCups cup)
 			}
 			else
 			{
-				cup.substances.push_back(this->substances[_id2]);
-				cup.volumes.push_back(this->volumes[_id2]);
-				cup.masses.push_back(this->masses[_id2]);
-				cup.volume_sum += this->volumes[_id2];
-				cup.mass_sum += this->masses[_id2];
+				cup->substances.push_back(this->substances[_id2]);
+				cup->volumes.push_back(this->volumes[_id2]);
+				cup->masses.push_back(this->masses[_id2]);
+				cup->volume_sum += this->volumes[_id2];
+				cup->mass_sum += this->masses[_id2];
 			}
 		}
 		else if(_id >= 0)
@@ -147,10 +156,10 @@ void TCups::mixup(TCups cup)
 			
 			if (_id3 >= 0)
 			{
-				cup.volumes[_id] += this->volumes[_id3];
-				cup.masses[_id] += this->masses[_id3];
-				cup.volume_sum += this->volumes[_id3];
-				cup.mass_sum += this->masses[_id3];
+				cup->volumes[_id] += this->volumes[_id3];
+				cup->masses[_id] += this->masses[_id3];
+				cup->volume_sum += this->volumes[_id3];
+				cup->mass_sum += this->masses[_id3];
 			}
 		}
 	}
@@ -170,15 +179,15 @@ void TCups::clear_cup()
 
 void TCups::show()
 {
-	int count = substances.size();
+	int count = this->substances.size();
 
 	if (count > 0)
 	{
 		for (int i = 0; i < count; i++)
 		{
-			/*std::cout << "\n" << this->substances[i].get_name()
+			std::cout << "\n" << this->substances[i].get_name()
 				<< "; volume: " << this->volumes[i] * 1e6 << " ml"
-				<< "; mass: " << this->masses[i] << " g" << std::endl;*/
+				<< "; mass: " << this->masses[i] << " g" << std::endl;
 		}
 
 		print_coe_vol();
