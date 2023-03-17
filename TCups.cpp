@@ -165,7 +165,6 @@ void TCups::mixup(TCups * cup)
 	}
 
 	this->clear_cup();
-	//std::cout << this->substances.size(); //dlaczego!!!!!!!!!!!!!!!! dlaczego potem pokazujesz zawartoœæ jak tu ewidetnie jesteœ wyczyszczony!!!!!!!!!!!!!
 }
 
 void TCups::clear_cup()
