@@ -184,9 +184,12 @@ void TCups::show()
 	{
 		for (int i = 0; i < count; i++)
 		{
-			std::cout << "\n" << this->substances[i].get_name()
-				<< "; volume: " << this->volumes[i] * 1e6 << " ml"
-				<< "; mass: " << this->masses[i] << " g" << std::endl;
+			std::string sub_name = this->substances[i].get_name();
+			double volume = this->volumes[i] * 1e6;
+			double mass = this->masses[i];
+			std::cout << "\n" << sub_name
+			<< "; volume: " << volume << " ml"
+			<< "; mass: " << mass << " g" << std::endl;
 		}
 
 		print_coe_vol();
