@@ -125,8 +125,8 @@ void TCups::add_2(std::string name, double percent, std::string type)
 
 void TCups::mixup(TCups * cup)
 {
-	int size_cup1 = cup->substances.size();
-	int size_cup2 = this->substances.size();
+	size_t size_cup1 = cup->substances.size();
+	size_t size_cup2 = this->substances.size();
 	
 	for (int i = 0; i < size_cup1; i++)
 	{
@@ -178,7 +178,7 @@ void TCups::clear_cup()
 
 void TCups::show()
 {
-	int count = this->substances.size();
+	size_t count = this->substances.size();
 
 	if (count > 0)
 	{
@@ -201,7 +201,7 @@ void TCups::show()
 
 void TCups::print_coe_vol()
 {
-	int size = TCups::volumes.size();
+	size_t size = TCups::volumes.size();
 
 	std::cout << "\nVolume coe: \n";
 	for (int i = 0; i < size; i++)
@@ -212,7 +212,7 @@ void TCups::print_coe_vol()
 
 void TCups::print_coe_mass()
 {
-	int size = TCups::volumes.size();
+	size_t size = TCups::volumes.size();
 
 	std::cout << "\nMass coe: \n";
 	for (int i = 0; i < size; i++)
@@ -225,7 +225,7 @@ void TCups::print_coe_mass()
 int TCups::get_substance_id(std::vector <TSubstance> subs_buff, std::string name, bool alert)
 {
 	int _id = -1;
-	int count = subs_buff.size();
+	size_t count = subs_buff.size();
 	bool run = count;
 
 	while (run)
@@ -239,7 +239,7 @@ int TCups::get_substance_id(std::vector <TSubstance> subs_buff, std::string name
 		if ((run == true) && (_id + 1 == count))
 		{
 			_id = -1;
-			if (alert) std::cout << "Nie znaleziono plynu o podanej nazwie: " << name << "\!\n\n";
+			if (alert) std::cout << "Nie znaleziono plynu o podanej nazwie: " << name << "\n\n";
 			run = false;
 		}
 	}
