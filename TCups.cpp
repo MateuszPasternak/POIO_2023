@@ -125,8 +125,8 @@ void TCups::add_2(std::string name, double percent, std::string type)
 
 void TCups::mixup(TCups * cup)
 {
-	size_t size_cup1 = cup->substances.size();
-	size_t size_cup2 = this->substances.size();
+	int size_cup1 = cup->substances.size();
+	int size_cup2 = this->substances.size();
 	
 	for (int i = 0; i < size_cup1; i++)
 	{
@@ -137,7 +137,7 @@ void TCups::mixup(TCups * cup)
 		{
 			int _id2 = get_substance_id(this->substances, this->substances[i].get_name(), false);
 
-			if (_id == -1)
+			if (_id2 == -1)
 			{
 				std::cout << "\n\n W zadnym kubku nie ma takiej substancji\n\n";
 			}
@@ -178,7 +178,7 @@ void TCups::clear_cup()
 
 void TCups::show()
 {
-	size_t count = this->substances.size();
+	int count = this->substances.size();
 
 	if (count > 0)
 	{
@@ -204,7 +204,7 @@ void TCups::show()
 
 void TCups::print_coe_vol()
 {
-	size_t size = TCups::volumes.size();
+	int size = TCups::volumes.size();
 
 	std::cout << "\nVolume coe: \n";
 	for (int i = 0; i < size; i++)
@@ -215,7 +215,7 @@ void TCups::print_coe_vol()
 
 void TCups::print_coe_mass()
 {
-	size_t size = TCups::volumes.size();
+	int size = TCups::volumes.size();
 
 	std::cout << "\nMass coe: \n";
 	for (int i = 0; i < size; i++)
